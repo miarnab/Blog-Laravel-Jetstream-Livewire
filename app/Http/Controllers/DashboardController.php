@@ -12,6 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $users = auth()->user();
-        return view('dashboard', compact('users'));
+        $posts = Post::all();
+        return view('dashboard', ['posts' => $posts], compact('users'));
     }
 }

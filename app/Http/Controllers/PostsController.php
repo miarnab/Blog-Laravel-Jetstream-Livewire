@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'post_image' => 'image|nullable|max:1999',
+            'post_image' => 'required|image|nullable|max:10240',
             "title" => 'required|unique:posts',
             "details" => "required",
         ],
@@ -60,6 +60,9 @@ class PostsController extends Controller
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('post_image')->storeAs('public/post_images', $fileNameToStore);
+            // $imagePath = $request->file('image')->storeAs('public/images');
+            // $post->image_path = str_replace('public/', 'storage/', $imagePath);
+
 
         } else {
             $fileNameToStore = 'noimage.jpg';

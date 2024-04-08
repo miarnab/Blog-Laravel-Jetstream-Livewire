@@ -22,6 +22,7 @@
                             <table class="table">
                                 <thead>
                                     <th class="px-6 py-2">#</th>
+                                    <th class="px-6 py-2">Image</th>
                                     <th class="px-6 py-2">Title</th>
                                     <th class="px-6 py-2">Body</th>
                                     <th class="px-6 py-2">Created At</th>
@@ -33,9 +34,14 @@
                                     @foreach ($posts as $post)
 
                                         <tr>
-                                            <th class="px-6 py-2">{{ $post->id }}</th>
+                                            <td class="px-6 py-2">{{ $post->id }}</td>
+                                            <td class="px-6 py-2">
+                                                @if ($post->post_image)
+                                                    <img src="{{ asset('storage/post_images/' . $post->post_image) }}" alt="{{ $post->title }}" width="400" height="400">
+                                                @endif
+                                            </td>
                                             <td class="px-6 py-2">{{ $post->title }}</td>
-                                            <td class="px-6 py-2">{{ substr(strip_tags($post->body), 0, 50) }}{{ strlen(strip_tags($post->body)) > 50 ? "..." : "" }}</td>
+                                            <td class="px-6 py-2">{{ strlen(strip_tags($post->details)) > 50 ? "..." : strip_tags($post->details) }}</td>
                                             <td class="px-6 py-2">{{ date('M j, Y', strtotime($post->created_at)) }}</td>
                                             <td class="px-6 py-2 justify-center">
                                                     <x-link method="get" href="{{route('posts.edit',$post->id)}}">Edit</x-link>
